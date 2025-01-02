@@ -85,7 +85,7 @@
 <body>
     <div class="container">
         <h2>Регистрация</h2>
-        <form method="post">
+        <form method="post" action="/todo/">
             {% csrf_token %}
             <input type="text" id="username" name="username" placeholder="Имя пользователя" required>
             <input type="email" id="email" name="email" placeholder="Email" required>
