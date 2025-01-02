@@ -85,13 +85,13 @@
 <body>
     <div class="container">
         <h2>Регистрация</h2>
-        <form method="post" action="/todo/">
+        <form method="post" action="{% url 'register' %}">
             {% csrf_token %}
             <input type="text" id="username" name="username" placeholder="Имя пользователя" required>
             <input type="email" id="email" name="email" placeholder="Email" required>
             <input type="password" id="password" name="password" placeholder="Пароль" required>
-            <input type="password" id="password_confirm" name="password_confirm" placeholder="Повторите пароль" required>
-            <input type="number" id="age" name="age" placeholder="Ваш возраст" min="0" required>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Повторите пароль" required>
+            <input type="number" id="age" name="age" placeholder="Ваш возраст" min="0" max="148" required>
             <button type="submit" class="button">Зарегистрироваться</button>
         </form>
         <div class="login-link">

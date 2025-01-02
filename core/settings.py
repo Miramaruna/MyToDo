@@ -210,3 +210,7 @@ APPEND_SLASH = False
 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 дней
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Сессия сохраняется при закрытии браузера
+
+LOGIN_URL = '/login/'  # или путь, где у вас находится страница входа
+
+LOGIN_REDIRECT_URL = '/todo/'  # Страница, на которую перенаправляются пользователи после входа

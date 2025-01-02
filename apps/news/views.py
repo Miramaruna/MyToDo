@@ -82,14 +82,13 @@ def delete_todo(request, todo_id):
 
 def register(request):
     if request.method == "POST":
-        # Передаем данные формы через data
         form = UserRegisterSerializer(data=request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "Регистрация прошла успешно!")
-            return redirect('todo')  # Замените на вашу страницу логина
+            # После регистрации, направляем на страницу todo
+            return redirect('/todo/')  # Убедитесь, что здесь правильный путь
         else:
-            # Выводим ошибки
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
