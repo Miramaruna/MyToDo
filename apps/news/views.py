@@ -98,11 +98,11 @@ def register(request):
 
     return render(request, "register.html", {"form": form})
 
-
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
+        remember_me = request.POST.get('remember_me')  # Проверяем значение чекбокса
         
         # Попытка аутентификации пользователя
         user = authenticate(request, username=username, password=password)
@@ -110,6 +110,14 @@ def login_view(request):
         if user is not None:
             # Вход пользователя
             login(request, user)
+            
+            if remember_me:
+                # Устанавливаем время жизни сессии по умолчанию (например, 30 дней)
+                request.session.set_expiry(60 * 60 * 24 * 30)  # 30 дней
+            else:
+                # Устанавливаем сессию до закрытия браузера
+                request.session.set_expiry(0)
+            
             messages.success(request, "Вы успешно вошли!")
             return redirect('todo')  # Перенаправление на страницу "To Do list"
         else:
@@ -117,6 +125,7 @@ def login_view(request):
             messages.error(request, "Неверное имя пользователя или пароль")
     
     return render(request, 'login.html')
+
 
 class CustomLoginView(LoginView):
     form_class = CustomAuthenticationForm

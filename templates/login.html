@@ -39,6 +39,14 @@
             width: 100%;
             margin-bottom: 20px;
         }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+        }
         .button {
             padding: 10px 15px;
             font-size: 14px;
@@ -69,6 +77,11 @@
             
             <label for="password">Пароль</label>
             <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="remember_me" name="remember_me">
+                <label for="remember_me">Запомнить меня</label>
+            </div>
             
             <button type="submit" class="button">Войти</button>
         </form>

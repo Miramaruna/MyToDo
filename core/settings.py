@@ -208,8 +208,5 @@ SIMPLE_JWT = {
 
 APPEND_SLASH = False
 
-# Длительность сохранения сессии (например, 2 недели)
-SESSION_COOKIE_AGE = 1209600  # В секундах
-
-# Разрешить использование сессий с cookies
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 дней
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Сессия сохраняется при закрытии браузера
