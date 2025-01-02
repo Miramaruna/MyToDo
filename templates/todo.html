@@ -14,12 +14,13 @@
             height: 100vh;
             margin: 0;
             background-color: #f4f4f9;
+            position: relative;
         }
         h1 {
             margin-bottom: 20px;
             padding: 10px 20px;
-            background-color: #28a745; /* Зеленый фон */
-            color: white; /* Белый текст */
+            background-color: #28a745;
+            color: white;
             border-radius: 5px;
         }
         ul {
@@ -79,6 +80,11 @@
         .complete-btn:hover {
             background: #218838;
         }
+        .complete-btn.disabled-btn {
+            background: #6c757d;
+            color: white;
+            cursor: not-allowed;
+        }
         .delete-btn {
             background: #dc3545;
             color: white;
@@ -86,13 +92,8 @@
         .delete-btn:hover {
             background: #c82333;
         }
-        .disabled-btn {
-            background: #6c757d;
-            color: white;
-            cursor: not-allowed;
-        }
         .add-btn {
-            background: #007bff; /* Синий цвет для кнопки */
+            background: #007bff;
             color: white;
         }
         .add-btn:hover {
@@ -111,9 +112,38 @@
         .footer-btn:hover {
             background: #0056b3;
         }
+        #user-profile {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin-right: 10px;
+        }
+        #user-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
     </style>
 </head>
 <body>
+    <!-- Профиль пользователя -->
+    <div id="user-profile">
+        <div id="user-avatar"></div>
+        <span id="user-name">{{ request.user.username }}</span>
+    </div>
+
     <h1>To-Do List</h1>
     <ul>
         {% for todo in todos %}

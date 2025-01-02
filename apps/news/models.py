@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+# from django.contrib.auth.forms import AuthenticationForm
 
 # Create your models here.
 
@@ -35,11 +35,7 @@ class User(AbstractUser):
         verbose_name_plural = 'Пользователи'
 
 class ToDo(models.Model):
-    user = models.ManyToManyField(
-        User,
-        related_name='ggg',
-        blank=True
-        )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todos')
 
     title = models.CharField(
         verbose_name='Заголовок',

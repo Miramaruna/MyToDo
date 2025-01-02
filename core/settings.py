@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # apps
-    'apps.news',
+    'apps.news',  # Keep this one
+    # 'apps.news.apps',  # Remove or comment out this line
 
     # rest
     'rest_framework',
@@ -151,8 +152,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Change this line
 AUTH_USER_MODEL = 'news.User'
-# AUTH_USER_MODEL = 'news.User' 
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

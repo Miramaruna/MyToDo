@@ -6,6 +6,7 @@ from rest_framework.generics import RetrieveAPIView, CreateAPIView, ListAPIView,
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from apps.news.models import User, ToDo
@@ -53,14 +54,17 @@ def main(request):
     todos = ToDo.objects.all()
     return render(request, 'home.html', {'todos': todos})
 
+@login_required
 def todohome(request):
-    todos = ToDo.objects.all()
+    # Получить список To-Do для текущего пользователя
+    todos = ToDo.objects.filter(user=request.user)[:15]
     if request.method == 'POST' and 'title' in request.POST:
         # Добавление новой задачи
         title = request.POST.get('title')
         if title:
-            ToDo.objects.create(title=title)
-            return redirect('todo')
+            # Создать задачу и связать её с текущим пользователем
+            ToDo.objects.create(user=request.user, title=title)
+            return redirect('todo')  # Перенаправление на ту же страницу
     return render(request, 'todo.html', {'todos': todos})
 
 def mark_completed(request, todo_id):
