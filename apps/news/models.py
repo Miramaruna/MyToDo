@@ -14,10 +14,6 @@ class User(AbstractUser):
     email = models.EmailField(
         verbose_name='Почта'
     )
-    phone_number = models.CharField(
-        max_length=30,
-        verbose_name='Номер телефона'
-    )
     created_at = models.DateField(
         verbose_name='Дата создания пользователя',
         auto_now_add=True

@@ -1,67 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff512f, #dd2476);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f9;
         }
         .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            width: 100%;
             max-width: 400px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
         }
         h2 {
-            text-align: center;
             color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
         form {
             display: flex;
             flex-direction: column;
+            gap: 15px;
         }
-        label {
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
-        input[type="text"], input[type="email"], input[type="number"], input[type="password"] {
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
             padding: 10px;
-            font-size: 14px;
+            font-size: 16px;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            width: 100%;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
         }
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+        input:focus {
+            border-color: #ff512f;
+            outline: none;
         }
-        button {
-            padding: 10px 15px;
-            font-size: 14px;
+        .button {
+            padding: 12px;
+            background: #ff512f;
+            color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
+            font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        .submit-btn {
-            background-color: #28a745;
-            color: #fff;
+        .button:hover {
+            background: #c71d4e;
         }
-        .cancel-btn {
-            background-color: #dc3545;
-            color: #fff;
+        .login-link {
+            margin-top: 15px;
+            color: #333;
+            font-size: 14px;
         }
-        button:hover {
-            opacity: 0.9;
+        .login-link a {
+            color: #ff512f;
+            text-decoration: none;
         }
-        .error {
-            color: red;
-            font-size: 12px;
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -70,78 +87,16 @@
         <h2>Регистрация</h2>
         <form method="post">
             {% csrf_token %}
-            
-            <!-- Имя пользователя -->
-            <label for="username">Имя пользователя</label>
-            <input type="text" id="username" name="username" placeholder="Введите имя пользователя" required>
-            {% if form.username.errors %}
-                <div class="error">
-                    {% for error in form.username.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            
-            <!-- Email -->
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Введите email" required>
-            {% if form.email.errors %}
-                <div class="error">
-                    {% for error in form.email.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            
-            <!-- Номер телефона -->
-            <label for="phone_number">Номер телефона</label>
-            <input type="text" id="phone_number" name="phone_number" placeholder="Введите номер телефона" required>
-            {% if form.phone_number.errors %}
-                <div class="error">
-                    {% for error in form.phone_number.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            
-            <!-- Возраст -->
-            <label for="age">Возраст</label>
-            <input type="number" id="age" name="age" placeholder="Введите возраст" required>
-            {% if form.age.errors %}
-                <div class="error">
-                    {% for error in form.age.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            
-            <!-- Пароль -->
-            <label for="password">Пароль</label>
-            <input type="password" id="password" name="password" placeholder="Введите пароль" required>
-            {% if form.password.errors %}
-                <div class="error">
-                    {% for error in form.password.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            
-            <!-- Подтверждение пароля -->
-            <label for="confirm_password">Подтвердите пароль</label>
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="Введите пароль повторно" required>
-            {% if form.confirm_password.errors %}
-                <div class="error">
-                    {% for error in form.confirm_password.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            
-            <div class="buttons">
-                <button type="submit" class="submit-btn">Зарегистрироваться</button>
-                <button type="button" class="cancel-btn" onclick="window.location.href='/'">Отмена</button>
-            </div>
+            <input type="text" id="username" name="username" placeholder="Имя пользователя" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Пароль" required>
+            <input type="password" id="password_confirm" name="password_confirm" placeholder="Повторите пароль" required>
+            <input type="number" id="age" name="age" placeholder="Ваш возраст" min="0" required>
+            <button type="submit" class="button">Зарегистрироваться</button>
         </form>
+        <div class="login-link">
+            Уже есть аккаунт? <a href="/login/">Войти</a>
+        </div>
     </div>
 </body>
 </html>

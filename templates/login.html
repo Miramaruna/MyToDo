@@ -6,64 +6,85 @@
     <title>Вход</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
         }
         .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            width: 100%;
             max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
         }
         h2 {
-            text-align: center;
             color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
         form {
             display: flex;
             flex-direction: column;
-        }
-        label {
-            margin: 10px 0 5px;
-            font-weight: bold;
+            gap: 15px;
         }
         input[type="text"], input[type="password"] {
             padding: 10px;
-            font-size: 14px;
+            font-size: 16px;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            width: 100%;
-            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #6a11cb;
+            outline: none;
         }
         .checkbox-container {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
-        }
-        .checkbox-container input[type="checkbox"] {
-            margin-right: 10px;
+            gap: 10px;
+            justify-content: flex-start;
         }
         .button {
-            padding: 10px 15px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            background-color: #007bff;
+            padding: 12px;
+            background: #6a11cb;
             color: white;
-            text-align: center;
-            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         .button:hover {
-            opacity: 0.9;
+            background: #4a0e9d;
         }
         .register-link {
-            text-align: center;
-            margin-top: 10px;
+            margin-top: 15px;
+            color: #333;
+            font-size: 14px;
+        }
+        .register-link a {
+            color: #6a11cb;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -72,22 +93,16 @@
         <h2>Вход</h2>
         <form method="post">
             {% csrf_token %}
-            <label for="username">Имя пользователя</label>
-            <input type="text" id="username" name="username" placeholder="Введите имя пользователя" required>
-            
-            <label for="password">Пароль</label>
-            <input type="password" id="password" name="password" placeholder="Введите пароль" required>
-            
+            <input type="text" id="username" name="username" placeholder="Имя пользователя" required>
+            <input type="password" id="password" name="password" placeholder="Пароль" required>
             <div class="checkbox-container">
                 <input type="checkbox" id="remember_me" name="remember_me">
                 <label for="remember_me">Запомнить меня</label>
             </div>
-            
             <button type="submit" class="button">Войти</button>
         </form>
-
         <div class="register-link">
-            <p>Нет аккаунта? <a href="/register/">Зарегистрируйтесь</a></p>
+            Нет аккаунта? <a href="/register/">Зарегистрируйтесь</a>
         </div>
     </div>
 </body>
