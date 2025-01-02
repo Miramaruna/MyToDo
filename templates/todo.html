@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #28a745; /* Зеленый фон */
+            color: white; /* Белый текст */
+            border-radius: 5px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #ffffff;
+            margin: 5px 0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+        }
+        li.completed {
+            background-color: #e9ecef;
+        }
+        li .checkmark {
+            display: none;
+            margin-right: 15px;
+            font-size: 20px;
+            color: green;
+        }
+        li.completed .checkmark {
+            display: inline;
+        }
+        li span {
+            display: inline-block;
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        li.completed span {
+            text-decoration: line-through;
+            color: gray;
+        }
+        form {
+            display: inline;
+        }
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .complete-btn {
+            background: #28a745;
+            color: white;
+        }
+        .complete-btn:hover {
+            background: #218838;
+        }
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+        .delete-btn:hover {
+            background: #c82333;
+        }
+        .disabled-btn {
+            background: #6c757d;
+            color: white;
+            cursor: not-allowed;
+        }
+        .add-btn {
+            background: #007bff; /* Синий цвет для кнопки */
+            color: white;
+        }
+        .add-btn:hover {
+            background: #0056b3;
+        }
+        .footer-btn {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .footer-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <ul>
+        {% for todo in todos %}
+            <li class="{% if todo.is_completed %}completed{% endif %}">
+                <span class="checkmark">✔</span>
+                <span>{{ todo.title }}</span>
+                <div>
+                    <!-- Кнопка для изменения статуса задачи -->
+                    <form method="post" action="{% url 'mark_completed' todo.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        {% if not todo.is_completed %}
+                            <button type="submit" class="complete-btn">Выполнено</button>
+                        {% else %}
+                            <button type="submit" class="complete-btn disabled-btn" disabled>Уже выполнено</button>
+                        {% endif %}
+                    </form>
+                    <!-- Кнопка для удаления задачи -->
+                    <form method="post" action="{% url 'delete_todo' todo.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-btn">Удалить</button>
+                    </form>
+                </div>
+            </li>
+        {% empty %}
+            <li>Нет задач</li>
+        {% endfor %}
+    </ul>
+    <!-- Форма для добавления новой задачи -->
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Введите задачу" required>
+        <button type="submit" class="add-btn">Добавить</button>
+    </form>
+
+    <div>
+        <a href="{% url 'register' %}">Регистрация</a>
+    </div>
+    <!-- Кнопка "Тут код сайта" -->
+    <a href="https://a9fm.github.io/lightshot" class="footer-btn" target="_blank">Тут код сайта</a>
+</body>
+</html>

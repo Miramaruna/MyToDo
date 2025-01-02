@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], input[type="number"], input[type="password"] {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .cancel-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Регистрация</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Имя пользователя -->
+            <label for="username">Имя пользователя</label>
+            <input type="text" id="username" name="username" placeholder="Введите имя пользователя" required>
+            {% if form.username.errors %}
+                <div class="error">
+                    {% for error in form.username.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- Email -->
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Введите email" required>
+            {% if form.email.errors %}
+                <div class="error">
+                    {% for error in form.email.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- Номер телефона -->
+            <label for="phone_number">Номер телефона</label>
+            <input type="text" id="phone_number" name="phone_number" placeholder="Введите номер телефона" required>
+            {% if form.phone_number.errors %}
+                <div class="error">
+                    {% for error in form.phone_number.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- Возраст -->
+            <label for="age">Возраст</label>
+            <input type="number" id="age" name="age" placeholder="Введите возраст" required>
+            {% if form.age.errors %}
+                <div class="error">
+                    {% for error in form.age.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- Пароль -->
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+            {% if form.password.errors %}
+                <div class="error">
+                    {% for error in form.password.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- Подтверждение пароля -->
+            <label for="confirm_password">Подтвердите пароль</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Введите пароль повторно" required>
+            {% if form.confirm_password.errors %}
+                <div class="error">
+                    {% for error in form.confirm_password.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <div class="buttons">
+                <button type="submit" class="submit-btn">Зарегистрироваться</button>
+                <button type="button" class="cancel-btn" onclick="window.location.href='/'">Отмена</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

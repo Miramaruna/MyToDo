@@ -1,0 +1,1 @@
+[{"model": "news.recipe", "pk": 1, "fields": {"name": "Bok", "ingredients": "trava korova", "instruction": "korova kakat bok est", "prep_time": 30, "is_vegetarian": true, "created_at": "2024-11-18"}}]
